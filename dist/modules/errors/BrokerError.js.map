@@ -1,0 +1,1 @@
+{"version":3,"file":"BrokerError.js","sourceRoot":"","sources":["../../../src/modules/errors/BrokerError.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,WAAY,SAAQ,KAAK;IAGlC,YAAY,OAAe,EAAE,MAAc;QACzC,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,MAAM,CAAC,cAAc,CAAC,IAAI,EAAE,WAAW,CAAC,SAAS,CAAC,CAAC;IACrD,CAAC;CACF"}

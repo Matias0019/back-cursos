@@ -8,41 +8,39 @@ const cursoBaseSchema = new mongoose.Schema<ICursoBaseDoc, ICursoBaseModel>(
   {
     name: {
       type: String,
-      required: true,
       default: '',
     },
     nivel: {
       name: {
         type: String,
-        required: true,
       },
       codigo: {
         type: Number,
-        required: true,
       },
     },
     horas: {
       type: Number,
-      required: true,
     },
     categoria:{
       type:Schema.Types.ObjectId,
-      ref:'Categoriacurso'
+      ref:'CategoriaCurso'
     },
     descripcion:{
       type: String,
-      required: true,
+      
     },
     img:{
       type: String,
-      required: true,
     },
     modulos:[{
       nombre:{
         type: String,
         default: '',
         trim: true,
-        required: true,
+      },
+      descripcion:{
+        type: String,
+        default: '',
       },
       lecciones:[
         {
@@ -51,19 +49,20 @@ const cursoBaseSchema = new mongoose.Schema<ICursoBaseDoc, ICursoBaseModel>(
             default: '',
             trim: true
           },
+          descripcion:{
+            type: String,
+            default: '',
+          },
           video:{
             type:String,
-            required: true,
           },
           img:{
             type:String,
-            required: true,
           },
           materialApoyo:[
             {
               url:{
                 type:String,
-                required: false,
               },
             }
           ],
@@ -78,11 +77,9 @@ const cursoBaseSchema = new mongoose.Schema<ICursoBaseDoc, ICursoBaseModel>(
                 {
                   respuesta:{
                     type:String,
-                    required: true,
                   },
                   correcta:{
                     type:Boolean,
-                    required: true,
                   },
                 }
               ]

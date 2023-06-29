@@ -4,6 +4,7 @@ import docsRoute from './swagger.route';
 import userRoute from './user.route';
 import cursoBaseRoute from './curso-base.route';
 import cursoUsuarioRoute from './curso-usuario.route';
+import cuategoriaCursoRoute from './categoria-curso.route';
 import config from '../../config/config';
 
 const router = express.Router();
@@ -26,6 +27,10 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/curso-usuario',
     route: cursoUsuarioRoute,
+  },
+  {
+    path: '/categoria-curso',
+    route: cuategoriaCursoRoute,
   },
 ];
 

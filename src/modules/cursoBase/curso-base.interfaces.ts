@@ -11,8 +11,10 @@ export interface ICursoBase { //Define los campos del CursoBase
   img:string,
   modulos:[{
     nombre: string,
+    descripcion: string,
     lecciones:[{
       nombre: string,
+      descripcion: string,
       video: string,
       img: string, 
       materialApoyo:[{url:string}],

@@ -3,27 +3,40 @@ import { objectId } from '../validate/custom.validation';
 import { ICursoUsuario } from './curso-usuario.interfaces';
 
 const createCursoUsuarioBody: Record<keyof ICursoUsuario, any> = {
-  name: Joi.string().required(),
-  nivel: Joi.object({name: Joi.string(), codigo: Joi.number()}).required(),
-  horas: Joi.number().required(),
+  name: Joi.string(),
+  nivel: Joi.object({
+    name: Joi.string(),
+    codigo: Joi.number()
+  }),
+  horas: Joi.number(),
   categoria: Joi.string().custom(objectId),
-  descripcion: Joi.string().required(),
-  img: Joi.string().required(),
-  modulos: Joi.array({
+  descripcion: Joi.string(),
+  img: Joi.string(),
+  modulos: Joi.array().items(Joi.object({
     porcentajeCompleto: Joi.number(),
     nombre: Joi.string(),
     descripcion: Joi.string(),
     leccionesCompletas: Joi.number(),
-    lecciones:[{
+    lecciones: Joi.array().items(Joi.object({
       nombre: Joi.string(),
       descripcion: Joi.string(),
       video: Joi.string(),
-      img: Joi.string(), 
+      img: Joi.string(),
       completa: Joi.boolean(),
-      materialApoyo:[{url:Joi.string()}],
-      preguntas:[{pregunta: Joi.string(), respuestas:[{respuesta: Joi.string(),respuestaUsuario: Joi.boolean(), completa: Joi.boolean(),}], completa: Joi.boolean()}]
-    }]
-  }),
+      materialApoyo: Joi.array().items(Joi.object({
+        url: Joi.string()
+      })),
+      preguntas: Joi.array().items(Joi.object({
+        pregunta: Joi.string(),
+        respuestas: Joi.array().items(Joi.object({
+          respuesta: Joi.string(),
+          correcta: Joi.boolean(),
+          respuestaUsuario: Joi.boolean(),
+        })),
+        completa: Joi.boolean()
+      }))
+    }))
+  })),
   curso: Joi.string().custom(objectId),
   empresa: Joi.string().custom(objectId),
   user: Joi.string().custom(objectId),
@@ -36,26 +49,39 @@ export const createCursoUsuario = {
 export const getCursoUsuarios = {
   query: Joi.object().keys({
     name: Joi.string(),
-    nivel: Joi.object({ name: Joi.string(), codigo: Joi.number() }),
+    nivel: Joi.object({
+      name: Joi.string(),
+      codigo: Joi.number()
+    }),
     horas: Joi.number(),
     categoria: Joi.string().custom(objectId),
     descripcion: Joi.string(),
     img: Joi.string(),
-    modulos: Joi.array({
+    modulos: Joi.array().items(Joi.object({
       porcentajeCompleto: Joi.number(),
       nombre: Joi.string(),
       descripcion: Joi.string(),
       leccionesCompletas: Joi.number(),
-      lecciones: [{
+      lecciones: Joi.array().items(Joi.object({
         nombre: Joi.string(),
         descripcion: Joi.string(),
         video: Joi.string(),
         img: Joi.string(),
         completa: Joi.boolean(),
-        materialApoyo: [{ url: Joi.string() }],
-        preguntas: [{ pregunta: Joi.string(), respuestas: [{ respuesta: Joi.string(), respuestaUsuario: Joi.boolean(), completa: Joi.boolean(), }], completa: Joi.boolean() }]
-      }]
-    }),
+        materialApoyo: Joi.array().items(Joi.object({
+          url: Joi.string()
+        })),
+        preguntas: Joi.array().items(Joi.object({
+          pregunta: Joi.string(),
+          respuestas: Joi.array().items(Joi.object({
+            respuesta: Joi.string(),
+            correcta: Joi.boolean(),
+            respuestaUsuario: Joi.boolean(),
+          })),
+          completa: Joi.boolean()
+        }))
+      }))
+    })),
     curso: Joi.string().custom(objectId),
     empresa: Joi.string().custom(objectId),
     user: Joi.string().custom(objectId),
@@ -79,26 +105,39 @@ export const updateCursoUsuario = {
   body: Joi.object()
     .keys({
       name: Joi.string(),
-      nivel: Joi.object({ name: Joi.string(), codigo: Joi.number() }),
+      nivel: Joi.object({
+        name: Joi.string(),
+        codigo: Joi.number()
+      }),
       horas: Joi.number(),
       categoria: Joi.string().custom(objectId),
       descripcion: Joi.string(),
       img: Joi.string(),
-      modulos: Joi.array({
+      modulos: Joi.array().items(Joi.object({
         porcentajeCompleto: Joi.number(),
         nombre: Joi.string(),
         descripcion: Joi.string(),
         leccionesCompletas: Joi.number(),
-        lecciones: [{
+        lecciones: Joi.array().items(Joi.object({
           nombre: Joi.string(),
           descripcion: Joi.string(),
           video: Joi.string(),
           img: Joi.string(),
           completa: Joi.boolean(),
-          materialApoyo: [{ url: Joi.string() }],
-          preguntas: [{ pregunta: Joi.string(), respuestas: [{ respuesta: Joi.string(), respuestaUsuario: Joi.boolean(), completa: Joi.boolean(), }], completa: Joi.boolean() }]
-        }]
-      }),
+          materialApoyo: Joi.array().items(Joi.object({
+            url: Joi.string()
+          })),
+          preguntas: Joi.array().items(Joi.object({
+            pregunta: Joi.string(),
+            respuestas: Joi.array().items(Joi.object({
+              respuesta: Joi.string(),
+              correcta: Joi.boolean(),
+              respuestaUsuario: Joi.boolean(),
+            })),
+            completa: Joi.boolean()
+          }))
+        }))
+      })),
       curso: Joi.string().custom(objectId),
       empresa: Joi.string().custom(objectId),
       user: Joi.string().custom(objectId),

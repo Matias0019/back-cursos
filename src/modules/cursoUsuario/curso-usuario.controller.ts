@@ -9,6 +9,7 @@ import * as cursoUsuarioService from './curso-usuario.service';
 
 export const createCursoUsuario = catchAsync(async (req: Request, res: Response) => {
   req.body.empresa =  req.user.empresaActiva
+  req.body.user =  req.user.id
   const cursoUsuario = await  cursoUsuarioService.createCursoUsuario(req.body)
   res.status(httpStatus.CREATED).send(cursoUsuario);
 });

@@ -8,57 +8,46 @@ const cursoUsuarioSchema = new mongoose.Schema<ICursoUsuarioDoc, ICursoUsuarioMo
   {
     name: {
       type: String,
-      required: true,
       default: '',
     },
     nivel: {
       name: {
         type: String,
-        required: true,
       },
       codigo: {
         type: Number,
-        required: true,
       },
     },
     horas: {
       type: Number,
-      required: true,
     },
     categoria:{
       type:Schema.Types.ObjectId,
-      ref:'Categoriacurso'
+      ref:'CategoriaCurso'
     },
     descripcion:{
       type: String,
-      required: true,
     },
     img:{
       type: String,
-      required: true,
     },
     modulos:[{
       porcentajeCompleto:{
         type: Number,
         default: 0,
-        required: true,
       },
       nombre:{
         type: String,
         default: '',
         trim: true,
-        required: true,
       },
       descripcion:{
         type: String,
         default: '',
-        trim: true,
-        required: true,
       },
       leccionesCompletas:{
         type: Number,
         default: 0,
-        required: true,
       },
       lecciones:[
         {
@@ -73,11 +62,9 @@ const cursoUsuarioSchema = new mongoose.Schema<ICursoUsuarioDoc, ICursoUsuarioMo
           },
           video:{
             type:String,
-            required: true,
           },
           img:{
             type:String,
-            required: true,
           },
           completa:{
             type:Boolean,
@@ -101,15 +88,12 @@ const cursoUsuarioSchema = new mongoose.Schema<ICursoUsuarioDoc, ICursoUsuarioMo
                 {
                   respuesta:{
                     type:String,
-                    required: true,
                   },
                   correcta:{
                     type:Boolean,
-                    required: true,
                   },
                   respuestaUsuario:{
                     type:Boolean,
-                    required: true,
                   },
                 }
               ],

@@ -13,7 +13,7 @@ export interface ICursoUsuario { //Define los campos del CursoUsuario
     porcentajeCompleto: number,
     nombre: string,
     descripcion: string,
-    leccionesCompletas: string,
+    leccionesCompletas: number,
     lecciones:[{
       nombre: string,
       descripcion: string,

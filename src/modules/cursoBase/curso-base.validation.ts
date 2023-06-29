@@ -3,22 +3,35 @@ import { objectId } from '../validate/custom.validation';
 import { ICursoBase } from './curso-base.interfaces';
 
 const createCursoBaseBody: Record<keyof ICursoBase, any> = {
-  name: Joi.string().required(),
-  nivel: Joi.object({name: Joi.string(), codigo: Joi.number()}).required(),
-  horas: Joi.number().required(),
-  categoria: Joi.string().custom(objectId),
-  descripcion: Joi.string().required(),
-  img: Joi.string().required(),
-  modulos: Joi.array({
-    nombre: Joi.string(),
-    lecciones:[{
-      nombre: Joi.string(),
-      video: Joi.string(),
-      img: Joi.string(), 
-      materialApoyo:[{url:Joi.string()}],
-      preguntas:[{pregunta: Joi.string(), respuestas:[{respuesta: Joi.string(),correcta: Joi.boolean(),}]}]
-    }]
+  name: Joi.string(),
+  nivel: Joi.object({
+    name: Joi.string(),
+    codigo: Joi.number()
   }),
+  horas: Joi.number(),
+  categoria: Joi.string().custom(objectId),
+  descripcion: Joi.string(),
+  img: Joi.string(),
+  modulos: Joi.array().items(Joi.object({
+    nombre: Joi.string(),
+    descripcion: Joi.string(),
+    lecciones: Joi.array().items(Joi.object({
+      nombre: Joi.string(),
+      descripcion: Joi.string(),
+      video: Joi.string(),
+      img: Joi.string(),
+      materialApoyo: Joi.array().items(Joi.object({
+        url: Joi.string()
+      })),
+      preguntas: Joi.array().items(Joi.object({
+        pregunta: Joi.string(),
+        respuestas: Joi.array().items(Joi.object({
+          respuesta: Joi.string(),
+          correcta: Joi.boolean()
+        }))
+      }))
+    }))
+  })),
   empresa: Joi.string().custom(objectId),
   user: Joi.string().custom(objectId),
 };
@@ -30,21 +43,34 @@ export const createCursoBase = {
 export const getCursoBases = {
   query: Joi.object().keys({
     name: Joi.string(),
-    nivel: Joi.object({name: Joi.string(), codigo: Joi.number()}),
+    nivel: Joi.object({
+      name: Joi.string(),
+      codigo: Joi.number()
+    }),
     horas: Joi.number(),
     categoria: Joi.string().custom(objectId),
     descripcion: Joi.string(),
     img: Joi.string(),
-    modulos: Joi.array({
-    nombre: Joi.string(),
-    lecciones:[{
+    modulos: Joi.array().items(Joi.object({
       nombre: Joi.string(),
-      video: Joi.string(),
-      img: Joi.string(), 
-      materialApoyo:[{url:Joi.string()}],
-      preguntas:[{pregunta: Joi.string(), respuestas:[{respuesta: Joi.string(),correcta: Joi.boolean(),}]}]
-    }]
-    }),
+      descripcion: Joi.string(),
+      lecciones: Joi.array().items(Joi.object({
+        nombre: Joi.string(),
+        descripcion: Joi.string(),
+        video: Joi.string(),
+        img: Joi.string(),
+        materialApoyo: Joi.array().items(Joi.object({
+          url: Joi.string()
+        })),
+        preguntas: Joi.array().items(Joi.object({
+          pregunta: Joi.string(),
+          respuestas: Joi.array().items(Joi.object({
+            respuesta: Joi.string(),
+            correcta: Joi.boolean()
+          }))
+        }))
+      }))
+    })),
     empresa: Joi.string().custom(objectId),
     user: Joi.string().custom(objectId),
     sortBy: Joi.string(),
@@ -67,21 +93,34 @@ export const updateCursoBase = {
   body: Joi.object()
     .keys({
       name: Joi.string(),
-      nivel: Joi.object({ name: Joi.string(), codigo: Joi.number() }),
+      nivel: Joi.object({
+        name: Joi.string(),
+        codigo: Joi.number()
+      }),
       horas: Joi.number(),
       categoria: Joi.string().custom(objectId),
       descripcion: Joi.string(),
       img: Joi.string(),
-      modulos: Joi.array({
+      modulos: Joi.array().items(Joi.object({
         nombre: Joi.string(),
-        lecciones: [{
+        descripcion: Joi.string(),
+        lecciones: Joi.array().items(Joi.object({
           nombre: Joi.string(),
+          descripcion: Joi.string(),
           video: Joi.string(),
           img: Joi.string(),
-          materialApoyo: [{ url: Joi.string() }],
-          preguntas: [{ pregunta: Joi.string(), respuestas: [{ respuesta: Joi.string(), correcta: Joi.boolean(), }] }]
-        }]
-      }),
+          materialApoyo: Joi.array().items(Joi.object({
+            url: Joi.string()
+          })),
+          preguntas: Joi.array().items(Joi.object({
+            pregunta: Joi.string(),
+            respuestas: Joi.array().items(Joi.object({
+              respuesta: Joi.string(),
+              correcta: Joi.boolean()
+            }))
+          }))
+        }))
+      })),
       empresa: Joi.string().custom(objectId),
       user: Joi.string().custom(objectId),
     })

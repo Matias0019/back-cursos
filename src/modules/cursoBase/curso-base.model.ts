@@ -27,66 +27,62 @@ const cursoBaseSchema = new mongoose.Schema<ICursoBaseDoc, ICursoBaseModel>(
     },
     descripcion:{
       type: String,
-      
     },
     img:{
       type: String,
     },
     modulos:[{
-      nombre:{
+      name: {
         type: String,
         default: '',
         trim: true,
       },
-      descripcion:{
+      descripcion: {
         type: String,
         default: '',
       },
-      lecciones:[
-        {
-          nombre:{
-            type: String,
-            default: '',
-            trim: true
-          },
-          descripcion:{
-            type: String,
-            default: '',
-          },
-          video:{
-            type:String,
-          },
-          img:{
-            type:String,
-          },
-          materialApoyo:[
-            {
-              url:{
-                type:String,
-              },
-            }
-          ],
-          preguntas:[
-            {
-              pregunta: {
-                type: String,
-                default: '',
-                trim: true
-              },
-              respuestas:[
-                {
-                  respuesta:{
-                    type:String,
-                  },
-                  correcta:{
-                    type:Boolean,
-                  },
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      lecciones: [{
+        name: {
+          type: String,
+          default: '',
+          trim: true
+        },
+        descripcion: {
+          type: String,
+          default: '',
+        },
+        video: {
+          type: String,
+        },
+        img: {
+          type: String,
+        },
+        materialApoyo: [
+          {
+            url: {
+              type: String,
+            },
+          }
+        ],
+        preguntas: [
+          {
+            pregunta: {
+              type: String,
+              default: '',
+            },
+            respuestas: [
+              {
+                respuesta: {
+                  type: String,
+                },
+                correcta: {
+                  type: Boolean,
+                },
+              }
+            ]
+          }
+        ],
+      }],
     }],
     empresa:{
       type:Schema.Types.ObjectId,

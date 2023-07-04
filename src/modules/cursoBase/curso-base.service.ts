@@ -29,7 +29,7 @@ export const createCursoBase = async (cursoBase: ICursoBase): Promise<ICursoBase
  * @param {mongoose.Types.ObjectId} id
  * @returns {Promise<ICursoBaseDoc | null>}
  */
-export const getCursoBaseById = async (id: mongoose.Types.ObjectId): Promise<ICursoBaseDoc | null> => CursoBase.findById(id);
+export const getCursoBaseById = async (id: mongoose.Types.ObjectId): Promise<ICursoBaseDoc | null> => CursoBase.findById(id).populate('categoria');
 
 /**
  * Update CursoBase by id

@@ -13,10 +13,10 @@ const createCursoBaseBody: Record<keyof ICursoBase, any> = {
   descripcion: Joi.string(),
   img: Joi.string(),
   modulos: Joi.array().items(Joi.object({
-    nombre: Joi.string(),
+    name: Joi.string(),
     descripcion: Joi.string(),
     lecciones: Joi.array().items(Joi.object({
-      nombre: Joi.string(),
+      name: Joi.string(),
       descripcion: Joi.string(),
       video: Joi.string(),
       img: Joi.string(),
@@ -29,8 +29,8 @@ const createCursoBaseBody: Record<keyof ICursoBase, any> = {
           respuesta: Joi.string(),
           correcta: Joi.boolean()
         }))
-      }))
-    }))
+      })),
+    })),
   })),
   empresa: Joi.string().custom(objectId),
   user: Joi.string().custom(objectId),
@@ -52,10 +52,10 @@ export const getCursoBases = {
     descripcion: Joi.string(),
     img: Joi.string(),
     modulos: Joi.array().items(Joi.object({
-      nombre: Joi.string(),
+      name: Joi.string(),
       descripcion: Joi.string(),
       lecciones: Joi.array().items(Joi.object({
-        nombre: Joi.string(),
+        name: Joi.string(),
         descripcion: Joi.string(),
         video: Joi.string(),
         img: Joi.string(),
@@ -68,8 +68,8 @@ export const getCursoBases = {
             respuesta: Joi.string(),
             correcta: Joi.boolean()
           }))
-        }))
-      }))
+        })),
+      })),
     })),
     empresa: Joi.string().custom(objectId),
     user: Joi.string().custom(objectId),
@@ -102,10 +102,10 @@ export const updateCursoBase = {
       descripcion: Joi.string(),
       img: Joi.string(),
       modulos: Joi.array().items(Joi.object({
-        nombre: Joi.string(),
+        name: Joi.string(),
         descripcion: Joi.string(),
         lecciones: Joi.array().items(Joi.object({
-          nombre: Joi.string(),
+          name: Joi.string(),
           descripcion: Joi.string(),
           video: Joi.string(),
           img: Joi.string(),
@@ -118,8 +118,8 @@ export const updateCursoBase = {
               respuesta: Joi.string(),
               correcta: Joi.boolean()
             }))
-          }))
-        }))
+          })),
+        })),
       })),
       empresa: Joi.string().custom(objectId),
       user: Joi.string().custom(objectId),

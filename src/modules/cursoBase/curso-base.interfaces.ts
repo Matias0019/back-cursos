@@ -9,17 +9,16 @@ export interface ICursoBase { //Define los campos del CursoBase
   categoria:mongoose.Types.ObjectId,
   descripcion:string,
   img:string,
-  modulos:[{
-    nombre: string,
-    descripcion: string,
-    lecciones:[{
-      nombre: string,
+  modulos:[{name: string;
+    descripcion: string;
+    lecciones: [{
+      name: string,
       descripcion: string,
       video: string,
-      img: string, 
-      materialApoyo:[{url:string}],
-      preguntas:[{pregunta: string, respuestas:[{respuesta: string,correcta: boolean,}]}]
-    }]
+      img: string,
+      materialApoyo: [{ url: string }],
+      preguntas: [{ pregunta: string, respuestas: [{ respuesta: string, correcta: boolean, }] }]
+    }];
   }],
   empresa:mongoose.Types.ObjectId;
   user: mongoose.Types.ObjectId,

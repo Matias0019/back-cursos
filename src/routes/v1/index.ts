@@ -3,6 +3,8 @@ import express, { Router } from 'express';
 import docsRoute from './swagger.route';
 import userRoute from './user.route';
 import cursoBaseRoute from './curso-base.route';
+import cursoModuloRoute from './curso-modulo.route';
+import cursoLeccionRoute from './curso-leccion.route';
 import cursoUsuarioRoute from './curso-usuario.route';
 import cuategoriaCursoRoute from './categoria-curso.route';
 import config from '../../config/config';
@@ -23,6 +25,14 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/curso-base',
     route: cursoBaseRoute,
+  },
+  {
+    path: '/curso-modulo',
+    route: cursoModuloRoute,
+  },
+  {
+    path: '/curso-leccion',
+    route: cursoLeccionRoute,
   },
   {
     path: '/curso-usuario',

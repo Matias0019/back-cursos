@@ -7,6 +7,7 @@ import cursoModuloRoute from './curso-modulo.route';
 import cursoLeccionRoute from './curso-leccion.route';
 import cursoUsuarioRoute from './curso-usuario.route';
 import cuategoriaCursoRoute from './categoria-curso.route';
+import uploadFileRoute from './upload-file.route';
 import config from '../../config/config';
 
 const router = express.Router();
@@ -41,6 +42,10 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/categoria-curso',
     route: cuategoriaCursoRoute,
+  },
+  {
+    path: '/upload',
+    route: uploadFileRoute,
   },
 ];
 

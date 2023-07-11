@@ -3,30 +3,30 @@ import { objectId } from '../validate/custom.validation';
 import { ICursoBase } from './curso-base.interfaces';
 
 const createCursoBaseBody: Record<keyof ICursoBase, any> = {
-  name: Joi.string(),
+  name: Joi.string().allow(""),
   nivel: Joi.object({
-    name: Joi.string(),
+    name: Joi.string().allow(""),
     codigo: Joi.number()
   }),
   horas: Joi.number(),
   categoria: Joi.string().custom(objectId),
-  descripcion: Joi.string(),
-  img: Joi.string(),
+  descripcion: Joi.string().allow(""),
+  img: Joi.string().allow(""),
   modulos: Joi.array().items(Joi.object({
-    name: Joi.string(),
-    descripcion: Joi.string(),
+    name: Joi.string().allow(""),
+    descripcion: Joi.string().allow(""),
     lecciones: Joi.array().items(Joi.object({
-      name: Joi.string(),
-      descripcion: Joi.string(),
-      video: Joi.string(),
-      img: Joi.string(),
+      name: Joi.string().allow(""),
+      descripcion: Joi.string().allow(""),
+      video: Joi.string().allow(""),
+      img: Joi.string().allow(""),
       materialApoyo: Joi.array().items(Joi.object({
-        url: Joi.string()
+        url: Joi.string().allow("")
       })),
       preguntas: Joi.array().items(Joi.object({
-        pregunta: Joi.string(),
+        pregunta: Joi.string().allow(""),
         respuestas: Joi.array().items(Joi.object({
-          respuesta: Joi.string(),
+          respuesta: Joi.string().allow(""),
           correcta: Joi.boolean()
         }))
       })),
@@ -42,30 +42,30 @@ export const createCursoBase = {
 
 export const getCursoBases = {
   query: Joi.object().keys({
-    name: Joi.string(),
+    name: Joi.string().allow(""),
     nivel: Joi.object({
-      name: Joi.string(),
+      name: Joi.string().allow(""),
       codigo: Joi.number()
     }),
     horas: Joi.number(),
     categoria: Joi.string().custom(objectId),
-    descripcion: Joi.string(),
-    img: Joi.string(),
+    descripcion: Joi.string().allow(""),
+    img: Joi.string().allow(""),
     modulos: Joi.array().items(Joi.object({
-      name: Joi.string(),
-      descripcion: Joi.string(),
+      name: Joi.string().allow(""),
+      descripcion: Joi.string().allow(""),
       lecciones: Joi.array().items(Joi.object({
-        name: Joi.string(),
-        descripcion: Joi.string(),
-        video: Joi.string(),
-        img: Joi.string(),
+        name: Joi.string().allow(""),
+        descripcion: Joi.string().allow(""),
+        video: Joi.string().allow(""),
+        img: Joi.string().allow(""),
         materialApoyo: Joi.array().items(Joi.object({
-          url: Joi.string()
+          url: Joi.string().allow("")
         })),
         preguntas: Joi.array().items(Joi.object({
-          pregunta: Joi.string(),
+          pregunta: Joi.string().allow(""),
           respuestas: Joi.array().items(Joi.object({
-            respuesta: Joi.string(),
+            respuesta: Joi.string().allow(""),
             correcta: Joi.boolean()
           }))
         })),
@@ -92,30 +92,30 @@ export const updateCursoBase = {
   }),
   body: Joi.object()
     .keys({
-      name: Joi.string(),
+      name: Joi.string().allow(""),
       nivel: Joi.object({
-        name: Joi.string(),
+        name: Joi.string().allow(""),
         codigo: Joi.number()
       }),
       horas: Joi.number(),
       categoria: Joi.string().custom(objectId),
-      descripcion: Joi.string(),
-      img: Joi.string(),
+      descripcion: Joi.string().allow(""),
+      img: Joi.string().allow(""),
       modulos: Joi.array().items(Joi.object({
-        name: Joi.string(),
-        descripcion: Joi.string(),
+        name: Joi.string().allow(""),
+        descripcion: Joi.string().allow(""),
         lecciones: Joi.array().items(Joi.object({
-          name: Joi.string(),
-          descripcion: Joi.string(),
-          video: Joi.string(),
-          img: Joi.string(),
+          name: Joi.string().allow(""),
+          descripcion: Joi.string().allow(""),
+          video: Joi.string().allow(""),
+          img: Joi.string().allow(""),
           materialApoyo: Joi.array().items(Joi.object({
-            url: Joi.string()
+            url: Joi.string().allow("")
           })),
           preguntas: Joi.array().items(Joi.object({
-            pregunta: Joi.string(),
+            pregunta: Joi.string().allow(""),
             respuestas: Joi.array().items(Joi.object({
-              respuesta: Joi.string(),
+              respuesta: Joi.string().allow(""),
               correcta: Joi.boolean()
             }))
           })),

@@ -1,7 +1,7 @@
 const allRoles = {
   user: [],
-  admin: ['getUsers', 'manageUsers', 'manageCursoUsuario', 'getCursoUsuario', 'getCategoriaCurso', 'manageCategoriaCurso', 'getCursoBase', 'manageCursoBase', 'getCursoModulo', 'manageCursoModulo', 'getCursoLeccion', 'manageCursoLeccion'],
-  superadmin: ['getUsers', 'manageUsers', 'manageCursoUsuario', 'getCursoUsuario', 'getCategoriaCurso', 'manageCategoriaCurso', 'getCursoBase', 'manageCursoBase', 'getCursoModulo', 'manageCursoModulo', 'getCursoLeccion', 'manageCursoLeccion'],
+  admin: ['getUsers', 'manageUsers', 'manageCursoUsuario', 'getCursoUsuario', 'getCategoriaCurso', 'manageCategoriaCurso', 'getCursoBase', 'manageCursoBase', 'getCursoModulo', 'manageCursoModulo', 'getCursoLeccion', 'manageCursoLeccion', 'manageUploadFile'],
+  superadmin: ['getUsers', 'manageUsers', 'manageCursoUsuario', 'getCursoUsuario', 'getCategoriaCurso', 'manageCategoriaCurso', 'getCursoBase', 'manageCursoBase', 'getCursoModulo', 'manageCursoModulo', 'getCursoLeccion', 'manageCursoLeccion', 'manageUploadFile'],
 };
 
 export const roles: string[] = Object.keys(allRoles);

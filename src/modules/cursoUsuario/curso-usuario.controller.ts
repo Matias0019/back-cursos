@@ -6,12 +6,44 @@ import ApiError from '../errors/ApiError';
 import pick from '../utils/pick';
 import { IOptions } from '../paginate/paginate';
 import * as cursoUsuarioService from './curso-usuario.service';
+import * as cursoBaseService from '../cursoBase/curso-base.service';
+import { ICursoUsuario } from './curso-usuario.interfaces';
 
 export const createCursoUsuario = catchAsync(async (req: Request, res: Response) => {
-  req.body.empresa =  req.user.empresaActiva
-  req.body.user =  req.user.id
-  const cursoUsuario = await  cursoUsuarioService.createCursoUsuario(req.body)
+  //req.body.empresa =  req.user.empresaActiva
+  //req.body.user =  req.user.id
+  const cursoBaseId = req.body.curso
+  const cursoBody = await  cursoBaseService.getCursoBaseById(cursoBaseId)
+  if (cursoBody){
+    const moduloArray = cursoBody.modulos.map((modulo) => ({
+      id: modulo.id as mongoose.Types.ObjectId,
+      porcentajeCompleto: 0,
+      leccionesCompletas: 0,
+      lecciones: modulo.lecciones.map((leccion) => ({
+        id: leccion.id as mongoose.Types.ObjectId,
+        completa: false,
+        preguntas: leccion.preguntas.map((pregunta) => ({
+          id: pregunta.id as mongoose.Types.ObjectId,
+          completa: false,
+          respuestas: pregunta.respuestas.map((respuesta) => ({
+            id: respuesta.id as mongoose.Types.ObjectId,
+            respuestaUsuario: false
+          }))
+        }))
+      }))
+    }))
+  const cursoUsuarioBody: ICursoUsuario = {
+    curso: cursoBaseId as mongoose.Types.ObjectId,
+    modulos:moduloArray,
+    empresa: req.user.empresaActiva as mongoose.Types.ObjectId,
+    user: req.user.id as mongoose.Types.ObjectId
+  }
+  const cursoUsuario = await  cursoUsuarioService.createCursoUsuario(cursoUsuarioBody)
   res.status(httpStatus.CREATED).send(cursoUsuario);
+}
+if (!cursoBody) {
+  throw new ApiError(httpStatus.NOT_FOUND, 'curso Base not found');
+}
 });
 
 export const getCursoUsuarios = catchAsync(async (req: Request, res: Response) => {

@@ -6,6 +6,7 @@ import ApiError from '../errors/ApiError';
 import pick from '../utils/pick';
 import { IOptions } from '../paginate/paginate';
 import * as cursoBaseService from './curso-base.service';
+import CursoBase from './curso-base.model';
 
 export const createCursoBase = catchAsync(async (req: Request, res: Response) => {
   req.body.empresa =  req.user.empresaActiva
@@ -45,5 +46,36 @@ export const deleteCursoBase = catchAsync(async (req: Request, res: Response) =>
   if (typeof req.params['cursoBaseId'] === 'string') {
     await cursoBaseService.deleteCursoBaseById(new mongoose.Types.ObjectId(req.params['cursoBaseId']));
     res.status(httpStatus.NO_CONTENT).send();
+  }
+});
+
+export const getCursoBaseWithUsuarios = catchAsync(async (req: Request, res: Response) => {
+  try {
+    const userId = req.user.id;
+    const pipeline = [
+      {
+        $lookup: {
+          from: 'cursousuarios',
+          localField: '_id',
+          foreignField: 'curso',
+          as: 'cursosBaseYUsuario',
+        },
+      },
+      { $unwind: { path: '$cursosBaseYUsuario', preserveNullAndEmptyArrays: true } },
+      {
+        $match: { user: userId }, // Filtrar por el _id del usuario
+      },
+    ];
+
+     CursoBase.aggregate(pipeline).exec((err:any,results:any)=> {
+        if(err){
+          res.status(httpStatus.NO_CONTENT).send()
+        }
+        console.log(results);
+        res.status(httpStatus.OK).send(results);
+     });
+  } catch (error) {
+    console.error('Error al obtener cursoBase con usuarios:', error);
+    res.status(500).send('Error al obtener cursoBase con usuarios');
   }
 });

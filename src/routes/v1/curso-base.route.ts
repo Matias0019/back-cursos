@@ -11,6 +11,10 @@ router
   .get(auth('getCursoBase'), validate(cursoBaseValidation.getCursoBases), cursoBaseController.getCursoBases);
 
 router
+  .route('/join')
+  .get(auth('getCursoBase'), cursoBaseController.getCursoBaseWithUsuarios)  
+
+router
   .route('/:cursoBaseId')
   .get(auth('getCursoBase'), validate(cursoBaseValidation.getCursoBase), cursoBaseController.getCursoBase)
   .patch(auth('manageCursoBase'), validate(cursoBaseValidation.updateCursoBase), cursoBaseController.updateCursoBase)

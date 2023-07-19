@@ -65,3 +65,26 @@ export const deleteCursoBaseById = async (cursoBaseId: mongoose.Types.ObjectId):
   await cursoBase.remove();
   return cursoBase;
 };
+
+// export const joinCollectionsCursoBase = async () => {
+//   try {
+//     const result = await CursoBase.aggregate([
+//       {
+//         $lookup: {
+//           from: 'Cursousuarios', // Nombre de la segunda colección
+//           localField: '_id', // Campo local que se utilizará para la unión (de la primera colección)
+//           foreignField: 'curso', // Campo de la segunda colección que se utilizará para la unión
+//           as: 'CursosBaseYUsuario', // Nombre del nuevo campo que contendrá los resultados unidos
+//           preserveNullAndEmptyArrays: true,
+//         },
+//       },
+//       { $unwind: '$CursosBaseYUsuario' }, // Deshacer el array creado por $lookup
+//     ]).exec();
+
+//     console.log(result);
+//     return result;
+//   } catch (error) {
+//     console.error('Error al unir las colecciones:', error);
+//     throw error;
+//   }
+// }

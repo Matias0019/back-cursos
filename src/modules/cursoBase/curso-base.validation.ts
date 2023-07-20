@@ -32,6 +32,7 @@ const createCursoBaseBody: Record<keyof ICursoBase, any> = {
       })),
     })),
   })),
+  activo: Joi.boolean(),
   empresa: Joi.string().custom(objectId),
   user: Joi.string().custom(objectId),
 };
@@ -71,6 +72,7 @@ export const getCursoBases = {
         })),
       })),
     })),
+    activo: Joi.boolean(),
     empresa: Joi.string().custom(objectId),
     user: Joi.string().custom(objectId),
     sortBy: Joi.string(),
@@ -121,6 +123,7 @@ export const updateCursoBase = {
           })),
         })),
       })),
+      activo: Joi.boolean(),
       empresa: Joi.string().custom(objectId),
       user: Joi.string().custom(objectId),
     })

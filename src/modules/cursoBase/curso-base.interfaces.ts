@@ -20,6 +20,7 @@ export interface ICursoBase { //Define los campos del CursoBase
       preguntas: [{ pregunta: string, respuestas: [{ respuesta: string, correcta: boolean, }] }]
     }];
   }],
+  activo:boolean;
   empresa:mongoose.Types.ObjectId;
   user: mongoose.Types.ObjectId,
 }

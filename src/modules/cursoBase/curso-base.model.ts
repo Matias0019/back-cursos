@@ -84,6 +84,10 @@ const cursoBaseSchema = new mongoose.Schema<ICursoBaseDoc, ICursoBaseModel>(
         ],
       }],
     }],
+    activo: {
+      type: Boolean,
+      default: false,
+    },
     empresa:{
       type:Schema.Types.ObjectId,
       ref:'Empresa'

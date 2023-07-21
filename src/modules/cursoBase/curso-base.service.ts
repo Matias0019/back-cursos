@@ -65,3 +65,57 @@ export const deleteCursoBaseById = async (cursoBaseId: mongoose.Types.ObjectId):
   await cursoBase.remove();
   return cursoBase;
 };
+
+export const joinCollectionsCursoBase = async (userId: any, empresaId: any) => {
+  try {
+    const result = await CursoBase.aggregate([
+      {
+        $lookup: {
+          from: 'cursousuarios',
+          let: { cursoId: '$_id' },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [{ $eq: ['$curso', '$$cursoId'] }, { $eq: ['$user', userId] }],
+                },
+              },
+            },
+          ],
+          as: 'cursosBaseYUsuario',
+        },
+      },
+      {
+        $addFields: {
+          cursosBaseYUsuario: {
+            $cond: {
+              if: { $isArray: '$cursosBaseYUsuario' },
+              then: { $arrayElemAt: ['$cursosBaseYUsuario', 0] },
+              else: { userType: 'missing' }, // Agrega un campo userType para indicar que no está relacionado
+            },
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'categoriacursos',
+          localField: 'categoria',
+          foreignField: '_id',
+          as: 'categoria',
+        },
+      },
+      {
+        $unwind: {
+          path: '$categoria',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $match: { empresa: empresaId }, // Filtrar por la empresa del curso base
+      },
+    ]).exec();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -6,6 +6,7 @@ import ApiError from '../errors/ApiError';
 import pick from '../utils/pick';
 import { IOptions } from '../paginate/paginate';
 import * as cursoBaseService from './curso-base.service';
+//import CursoBase from './curso-base.model';
 
 export const createCursoBase = catchAsync(async (req: Request, res: Response) => {
   req.body.empresa =  req.user.empresaActiva
@@ -45,5 +46,72 @@ export const deleteCursoBase = catchAsync(async (req: Request, res: Response) =>
   if (typeof req.params['cursoBaseId'] === 'string') {
     await cursoBaseService.deleteCursoBaseById(new mongoose.Types.ObjectId(req.params['cursoBaseId']));
     res.status(httpStatus.NO_CONTENT).send();
+  }
+});
+
+export const getCursoBaseWithUsuarios = catchAsync(async (req: Request, res: Response) => {
+  try {
+    const userId = new mongoose.Types.ObjectId(req.user.id);
+    const empresaId = new mongoose.Types.ObjectId(req.user.empresaActiva);
+    // const pipeline = [
+    //   {
+    //     $lookup: {
+    //       from: 'cursousuarios',
+    //       localField: '_id',
+    //       foreignField: 'curso',
+    //       as: 'cursosBaseYUsuario',
+    //     },
+    //   },
+    //   { $unwind: { path: '$cursosBaseYUsuario', preserveNullAndEmptyArrays: true } },
+    //   {
+    //     $match: { 'cursosBaseYUsuario.user': userId  },
+    //   },
+    // ];
+
+    // const pipeline = [
+    //   {
+    //     $lookup: {
+    //       from: 'cursousuarios',
+    //       let: { cursoId: '$_id' },
+    //       pipeline: [
+    //         {
+    //           $match: {
+    //             $expr: {
+    //               $and: [{ $eq: ['$curso', '$$cursoId'] }, { $eq: ['$user', userId] }],
+    //             },
+    //           },
+    //         },
+    //       ],
+    //       as: 'cursosBaseYUsuario',
+    //     },
+    //   },
+    //   {
+    //     $addFields: {
+    //       cursosBaseYUsuario: {
+    //         $cond: {
+    //           if: { $isArray: '$cursosBaseYUsuario' },
+    //           then: { $arrayElemAt: ['$cursosBaseYUsuario', 0] },
+    //           else: { userType: 'missing' }, // Agrega un campo userType para indicar que no está relacionado
+    //         },
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $match: { empresa: empresaId }, // Filtrar por la empresa del curso base
+    //   },
+    // ];
+
+    //  CursoBase.aggregate(pipeline).exec((err:any,results:any)=> {
+    //     if(err){
+    //       res.status(httpStatus.NO_CONTENT).send()
+    //     }
+    //     res.status(httpStatus.OK).send(results);
+    //  });
+
+    const result = await cursoBaseService.joinCollectionsCursoBase(userId, empresaId);
+    res.status(httpStatus.OK).send(result);
+  } catch (error) {
+    console.error('Error al obtener cursoBase con usuarios:', error);
+    res.status(500).send('Error al obtener cursoBase con usuarios');
   }
 });
